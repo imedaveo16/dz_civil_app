@@ -40,7 +40,7 @@ dependencies:
   cloud_firestore: ^5.4.0
   flutter_localizations:
     sdk: flutter
-  intl: ^0.18.1
+  intl: any
   flutter_map: ^7.0.2
   latlong2: ^0.9.1
   url_launcher: ^6.3.1
