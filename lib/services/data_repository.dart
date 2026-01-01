@@ -83,10 +83,8 @@ class DataRepository {
   ];
 
   final List<EmergencyContact> _defaultContacts = const [
-    EmergencyContact(title: "الحماية المدنية", number: "14", iconCode: 0xe596, colorValue: 0xFFB71C1C),
-    EmergencyContact(title: "الشرطة", number: "17", iconCode: 0xe3a8, colorValue: 0xFF0D47A1),
-    EmergencyContact(title: "الدرك الوطني", number: "1055", iconCode: 0xe56b, colorValue: 0xFF2E7D32), // Colors.green[800]
-    EmergencyContact(title: "الإسعاف الطبي", number: "115", iconCode: 0xef5b, colorValue: 0xFFEF6C00), // Colors.orange[800]
+    EmergencyContact(title: "رقم النجدة (الحماية المدنية)", number: "14", iconCode: 0xe596, colorValue: 0xFFD32F2F),
+    EmergencyContact(title: "الرقم الأخضر (الاستعلامات)", number: "1021", iconCode: 0xe3a8, colorValue: 0xFF1A237E),
   ];
 }
 

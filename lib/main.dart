@@ -14,32 +14,37 @@ void main() async {
   } catch (e) {
     debugPrint("Firebase initialization failed (expected until configured): $e");
   }
-  runApp(const CivilDefenseApp());
+  runApp(const EnqidhniApp());
 }
 
-class CivilDefenseApp extends StatelessWidget {
-  const CivilDefenseApp({super.key});
+class EnqidhniApp extends StatelessWidget {
+  const EnqidhniApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Civil Defense DGPC',
+      title: 'انقذني',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFFB71C1C), // Civil Defense Red
-          primary: const Color(0xFFB71C1C),
-          secondary: const Color(0xFF0D47A1), // Civil Defense Blue
+          seedColor: const Color(0xFFD32F2F), // Official Red
+          primary: const Color(0xFFD32F2F),
+          secondary: const Color(0xFF1A237E), // Dark Blue
+          surface: const Color(0xFFF5F5F5), // Light Grey
         ),
         useMaterial3: true,
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFFB71C1C),
+          backgroundColor: Color(0xFFD32F2F),
           foregroundColor: Colors.white,
+          centerTitle: true,
+          elevation: 4,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFB71C1C),
+            backgroundColor: const Color(0xFFD32F2F),
             foregroundColor: Colors.white,
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
         ),
       ),

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:civil_defense_app/screens/map_screen.dart';
-import 'package:civil_defense_app/screens/contacts_screen.dart';
-import 'package:civil_defense_app/screens/login_screen.dart';
-import 'package:civil_defense_app/screens/safety_guide_screen.dart';
-import 'package:civil_defense_app/screens/alerts_screen.dart';
-import 'package:civil_defense_app/widgets/algeria_flag.dart';
+import 'package:enqidhni/screens/map_screen.dart';
+import 'package:enqidhni/screens/contacts_screen.dart';
+import 'package:enqidhni/screens/login_screen.dart';
+import 'package:enqidhni/screens/safety_guide_screen.dart';
+import 'package:enqidhni/screens/alerts_screen.dart';
+import 'package:enqidhni/screens/report_screen.dart';
+import 'package:enqidhni/widgets/official_header.dart';
+import 'package:enqidhni/widgets/official_footer.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -12,117 +14,182 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("الدفاع المدني DGPC"),
-        centerTitle: true,
-        actions: const [
-          Padding(
-            padding: EdgeInsets.all(8.0),
-            child: AlgeriaFlag(width: 45, height: 30),
+      appBar: const OfficialHeader(),
+      bottomNavigationBar: const OfficialFooter(), // Using footer as a bottom bar or overlay
+      body: Container(
+        decoration: const BoxDecoration(
+          color: Color(0xFFF5F5F5), // Light Grey background
+        ),
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            // Incident Reporting Section
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  "الإبلاغ عن بلاغ الجديد:",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF1A237E),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 15),
+            _buildIncidentGrid(context),
+            const SizedBox(height: 20),
+            const Divider(height: 1),
+            const SizedBox(height: 20),
+            // Quick Access Section
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  "الوصول السريع:",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Expanded(
+              child: _buildQuickAccessGrid(context),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildIncidentGrid(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          _buildIncidentButton(
+            context,
+            title: "إسعاف وإجلاء",
+            icon: Icons.ambulance_rounded,
+            color: Colors.redAccent,
+            onTap: () => _navigateToReport(context, "إسعاف وإجلاء"),
+          ),
+          _buildIncidentButton(
+            context,
+            title: "حرائق وانفجارات",
+            icon: Icons.local_fire_department,
+            color: Colors.orange,
+            onTap: () => _navigateToReport(context, "حرائق وانفجارات"),
+          ),
+          _buildIncidentButton(
+            context,
+            title: "أنقاذ",
+            icon: Icons.life_saver_rounded,
+            color: Colors.blue,
+            onTap: () => _navigateToReport(context, "إنقاذ"),
           ),
         ],
       ),
-      body: Center(
+    );
+  }
+
+  void _navigateToReport(BuildContext context, String type) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ReportScreen(incidentType: type),
+      ),
+    );
+  }
+
+  Widget _buildIncidentButton(BuildContext context, {
+    required String title,
+    required IconData icon,
+    required Color color,
+    required VoidCallback onTap,
+  }) {
+    final size = MediaQuery.of(context).size.width / 3.5;
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(15),
+      child: Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          color: color.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: color, width: 2),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.shield, size: 100, color: Color(0xFFB71C1C)),
-            const SizedBox(height: 20),
-            const Text(
-              "المساعدة الطارئة",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton.icon(
-              onPressed: () {
-                // TODO: Implement SOS functionality
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("تم ضغط زر الاستغاثة")),
-                );
-              },
-              icon: const Icon(Icons.phone_in_talk, size: 32),
-              label: const Text("نداء استغاثة", style: TextStyle(fontSize: 20)),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFB71C1C),
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              ),
-            ),
-            const SizedBox(height: 40),
-            Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                mainAxisSpacing: 20,
-                crossAxisSpacing: 20,
-                children: [
-                  _buildFeatureCard(
-                    context,
-                    title: "الإبلاغ عن خطر", // Report Hazard (Map)
-                    icon: Icons.map,
-                    color: Colors.blue,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const MapScreen()),
-                      );
-                    },
-                  ),
-                  _buildFeatureCard(
-                    context,
-                    title: "أرقام الطوارئ", // Emergency Contacts
-                    icon: Icons.phone,
-                    color: Colors.green,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const ContactsScreen()),
-                      );
-                    },
-                  ),
-                  _buildFeatureCard(
-                    context,
-                    title: "دليل السلامة", // Safety Guide
-                    icon: Icons.menu_book,
-                    color: Colors.orange,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const SafetyGuideScreen()),
-                      );
-                    },
-                  ),
-                  _buildFeatureCard(
-                    context,
-                    title: "تنبيهات الطوارئ", // Emergency Alerts
-                    icon: Icons.notifications_active,
-                    color: Colors.redAccent,
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const AlertsScreen()),
-                      );
-                    },
-                  ),
-                  _buildFeatureCard(
-                    context,
-                    title: "حسابي", // My Account (Login)
-                    icon: Icons.person,
-                    color: Colors.grey,
-                    onTap: () {
-                        Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const LoginScreen()),
-                      );
-                    },
-                  ),
-                ],
+            Icon(icon, size: 40, color: color),
+            const SizedBox(height: 8),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                color: color,
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildQuickAccessGrid(BuildContext context) {
+    return GridView.count(
+      crossAxisCount: 3,
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      mainAxisSpacing: 16,
+      crossAxisSpacing: 16,
+      children: [
+        _buildFeatureCard(
+          context,
+          title: "خريطة الطوارئ",
+          icon: Icons.map_outlined,
+          color: const Color(0xFF1A237E),
+          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const MapScreen())),
+        ),
+        _buildFeatureCard(
+          context,
+          title: "أرقام الطوارئ",
+          icon: Icons.phone_android,
+          color: Colors.green,
+          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const ContactsScreen())),
+        ),
+        _buildFeatureCard(
+          context,
+          title: "دليل السلامة",
+          icon: Icons.menu_book,
+          color: Colors.orange,
+          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SafetyGuideScreen())),
+        ),
+         _buildFeatureCard(
+          context,
+          title: "التنبيهات",
+          icon: Icons.notifications_active_outlined,
+          color: Colors.red,
+          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const AlertsScreen())),
+        ),
+         _buildFeatureCard(
+          context,
+          title: "حسابي",
+          icon: Icons.person_outline,
+          color: Colors.grey,
+          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen())),
+        ),
+      ],
     );
   }
 
@@ -135,16 +202,17 @@ class HomeScreen extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Card(
-        elevation: 3,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        elevation: 2,
+        color: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 40, color: color),
-            const SizedBox(height: 10),
+            Icon(icon, size: 30, color: color),
+            const SizedBox(height: 8),
             Text(
               title,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
               textAlign: TextAlign.center,
             ),
           ],
@@ -153,3 +221,4 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+

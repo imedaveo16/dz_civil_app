@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:enqidhni/screens/report_screen.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -21,7 +23,6 @@ class _MapScreenState extends State<MapScreen> {
     bool serviceEnabled;
     LocationPermission permission;
 
-    // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       if (mounted) {
@@ -74,13 +75,31 @@ class _MapScreenState extends State<MapScreen> {
     }
   }
 
+  Future<void> _openInGoogleMaps() async {
+    final String googleMapsUrl = "https://www.google.com/maps/search/?api=1&query=${_currentPosition.latitude},${_currentPosition.longitude}";
+    final Uri url = Uri.parse(googleMapsUrl);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } else {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('تعذر فتح خرائط جوجل.')),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("خريطة الطوارئ"), // Emergency Map
+        title: const Text("خريطة الطوارئ"),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.map),
+            tooltip: "فتح في خرائط جوجل",
+            onPressed: _openInGoogleMaps,
+          ),
           IconButton(
             icon: const Icon(Icons.my_location),
             onPressed: _getCurrentLocation,
@@ -98,7 +117,7 @@ class _MapScreenState extends State<MapScreen> {
             children: [
               TileLayer(
                 urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                userAgentPackageName: 'com.example.civil_defense_app',
+                userAgentPackageName: 'com.enqidhni.app',
               ),
               MarkerLayer(
                 markers: [
@@ -108,7 +127,7 @@ class _MapScreenState extends State<MapScreen> {
                     height: 80,
                     child: const Icon(
                       Icons.location_on,
-                      color: Color(0xFFB71C1C),
+                      color: Color(0xFFD32F2F),
                       size: 40,
                     ),
                   ),
@@ -124,16 +143,17 @@ class _MapScreenState extends State<MapScreen> {
             right: 20,
             child: ElevatedButton.icon(
               onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(
-                    "تم إرسال البلاغ من الموقع:\\n${_currentPosition.latitude}, ${_currentPosition.longitude}"
-                  )),
+                 Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ReportScreen(incidentType: "بلاغ من الخريطة"),
+                  ),
                 );
               },
               icon: const Icon(Icons.send, size: 28),
-              label: const Text("إرسال بلاغ", style: TextStyle(fontSize: 24)),
+              label: const Text("إرسال بلاغ من هذا الموقع", style: TextStyle(fontSize: 20)),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFB71C1C), // Red
+                backgroundColor: const Color(0xFFD32F2F),
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 shape: RoundedRectangleBorder(
