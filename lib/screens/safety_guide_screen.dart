@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:civil_defense_app/services/data_repository.dart';
+import 'package:enqidhni/services/data_repository.dart';
 
 class SafetyGuideScreen extends StatelessWidget {
   const SafetyGuideScreen({super.key});

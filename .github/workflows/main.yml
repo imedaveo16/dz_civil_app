@@ -8,37 +8,35 @@ on:
 
 jobs:
   build:
+    name: Build Release APK
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
           cache: 'gradle'
-          
+
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.19.0'
           channel: 'stable'
           cache: true
-          
-      - name: Install dependencies
+
+      - name: Get Dependencies
         run: flutter pub get
-        
-      - name: Clean build
-        run: flutter clean
-        
+
       - name: Build APK
         run: flutter build apk --release --no-tree-shake-icons
-        
-      - name: Upload APK
+
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: civil-defense-apk
+          name: app-release
           path: build/app/outputs/flutter-apk/app-release.apk

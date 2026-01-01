@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:civil_defense_app/services/data_repository.dart';
+import 'package:enqidhni/services/data_repository.dart';
 
 class ContactsScreen extends StatelessWidget {
   const ContactsScreen({super.key});
