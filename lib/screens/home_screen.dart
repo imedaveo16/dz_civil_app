@@ -23,6 +23,13 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 20),
+            // Official Logo
+            Image.asset(
+              'assets/images/civil_defense_logo_dz.png',
+              height: 120,
+              fit: BoxFit.contain,
+            ),
+            const SizedBox(height: 20),
             // Incident Reporting Section
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),

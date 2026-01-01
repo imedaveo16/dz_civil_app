@@ -75,22 +75,21 @@ class _OfficialHeaderState extends State<OfficialHeader> {
                   ),
                 ],
               ),
-              // Right side: Clock and Flag
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
+              // Right side: Clock and Flag (Side-by-side)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                   const AlgeriaFlag(width: 40, height: 25),
-                   const SizedBox(height: 4),
-                   Text(
+                  Text(
                     _currentTime,
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 14,
+                      fontSize: 16,
                       fontFamily: 'monospace',
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  const SizedBox(width: 10),
+                  const AlgeriaFlag(width: 40, height: 25),
                 ],
               ),
             ],
