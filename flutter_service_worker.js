@@ -29,10 +29,10 @@ const RESOURCES = {"assets/assets/images/civil_defense_logo_dz.png": "b25c76cd4b
 "canvaskit/canvaskit.wasm": "1f237a213d7370cf95f443d896176460",
 "canvaskit/skwasm.js": "9fa2ffe90a40d062dd2343c7b84caf01",
 "canvaskit/skwasm.worker.js": "bfb704a6c714a75da9ef320991e88b03",
-"index.html": "2c4a88664c20090c8ca2f5ccde58d51c",
-"/": "2c4a88664c20090c8ca2f5ccde58d51c",
+"index.html": "0f50bba63945849534bda35c2f13620b",
+"/": "0f50bba63945849534bda35c2f13620b",
 "main.dart.js": "b02c7a78cfb72536377139d0ed61f4c7",
-"flutter_bootstrap.js": "0b274705995421759f024c032d96d67c",
+"flutter_bootstrap.js": "207474e98feca4c9e784bc18fb1a6155",
 "version.json": "f8c0ed6a1c045a5b7fd6ec4e2e504a7f",
 "manifest.json": "cf94c3d58589ba87c618d20b1543a822",
 "flutter.js": "f31737fb005cd3a3c6bd9355efd33061"};
