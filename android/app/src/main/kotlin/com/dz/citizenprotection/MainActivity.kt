@@ -1,4 +1,4 @@
-package com.example.civil_defense_app
+package com.dz.citizenprotection
 
 import io.flutter.embedding.android.FlutterActivity
 
