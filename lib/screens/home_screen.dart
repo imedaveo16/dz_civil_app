@@ -84,7 +84,7 @@ class HomeScreen extends StatelessWidget {
           _buildIncidentButton(
             context,
             title: "إسعاف وإجلاء",
-            icon: Icons.ambulance_rounded,
+            icon: Icons.medical_services,
             color: Colors.redAccent,
             onTap: () => _navigateToReport(context, "إسعاف وإجلاء"),
           ),
@@ -98,7 +98,7 @@ class HomeScreen extends StatelessWidget {
           _buildIncidentButton(
             context,
             title: "أنقاذ",
-            icon: Icons.life_saver_rounded,
+            icon: Icons.support,
             color: Colors.blue,
             onTap: () => _navigateToReport(context, "إنقاذ"),
           ),
