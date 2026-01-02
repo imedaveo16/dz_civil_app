@@ -1,36 +1,27 @@
 {
   "project_info": {
-    "project_number": "000000000000",
+    "project_number": "96483522208",
+    "firebase_url": "https://civilprotectiondz-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "civilprotectiondz",
-    "storage_bucket": "civilprotectiondz.appspot.com"
+    "storage_bucket": "civilprotectiondz.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:000000000000:android:0000000000000000",
+        "mobilesdk_app_id": "1:96483522208:android:aabb5dc248f7ad5a27fbc5",
         "android_client_info": {
           "package_name": "com.dz.citizenprotection"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "000000000000-00000000000000000000000000000000.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSy000000000000000000000000000000000"
+          "current_key": "AIzaSyC7LDpc2gAmUNdLDSutsYm6VbDK6JBW4BE"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "000000000000-00000000000000000000000000000000.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }
